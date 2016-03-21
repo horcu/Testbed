@@ -1,4 +1,4 @@
-package com.example.hacz.testbed.helper;
+package com.example.hacz.gameboard.helper;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import com.example.hacz.testbed.widget.LeBubbleTextView;
-import com.example.hacz.testbed.widget.LeBubbleView;
+import com.example.hacz.gameboard.widget.LeBubbleTextView;
+import com.example.hacz.gameboard.widget.LeBubbleView;
 
 /**
  * Created by dupengtao on 15/10/9.

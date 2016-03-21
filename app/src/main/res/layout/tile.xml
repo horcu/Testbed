@@ -14,6 +14,7 @@
             app:mli_letter="P"
             app:mli_initials_number="8"
             app:mli_letter_color="#ebebeb"
+            app:mli_letter_size="17"
             app:mli_shape_color="@android:color/holo_orange_dark"/>
 
 </RelativeLayout>

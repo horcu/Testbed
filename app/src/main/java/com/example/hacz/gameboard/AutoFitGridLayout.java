@@ -1,4 +1,4 @@
-package com.example.hacz.testbed;
+package com.example.hacz.gameboard;
 
 /**
  * Created by hacz on 12/1/2015.

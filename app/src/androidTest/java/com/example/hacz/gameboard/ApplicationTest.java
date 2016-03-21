@@ -1,4 +1,4 @@
-package com.example.hacz.testbed;
+package com.example.hacz.gameboard;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

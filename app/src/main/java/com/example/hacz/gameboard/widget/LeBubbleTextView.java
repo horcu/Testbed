@@ -1,4 +1,4 @@
-package com.example.hacz.testbed.widget;
+package com.example.hacz.gameboard.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

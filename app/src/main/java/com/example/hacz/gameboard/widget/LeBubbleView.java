@@ -1,4 +1,4 @@
-package com.example.hacz.testbed.widget;
+package com.example.hacz.gameboard.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.example.hacz.testbed.R;
+import com.example.hacz.gameboard.R;
 
 
 /**

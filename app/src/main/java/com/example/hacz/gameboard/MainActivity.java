@@ -1,9 +1,8 @@
-package com.example.hacz.testbed;
+package com.example.hacz.gameboard;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Icon;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,15 +11,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputConnection;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.hacz.testbed.widget.LeBubbleTextView;
+import com.example.hacz.gameboard.widget.LeBubbleTextView;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,12 +38,13 @@ public class MainActivity extends AppCompatActivity {
         grid = (AutoFitGridLayout) findViewById(R.id.grid);
         infoView = (LeBubbleTextView) findViewById(R.id.infoView);
         infoView.setVisibility(View.GONE);
+        TileHelper tHelper = new TileHelper();
 
         final View cardView = getLayoutInflater().inflate(R.layout.tile, grid, false);
 
         for(int i = 0; i < 60; i ++ ) {
 
-            final CardView card = (CardView) getLayoutInflater().inflate(R.layout.peezcard, grid, false); // new CardView(this);
+            final GameTile card = (GameTile) getLayoutInflater().inflate(R.layout.peezcard, grid, false); // new CardView(this);
             card.setTag(R.string.view_index, i);
             card.setCardElevation(1);
             card.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             params.height = 150;
             card.setForegroundGravity(Gravity.CENTER);
             card.setLayoutParams(params);
+            ArrayList<Integer> nIndicdes = tHelper.AddNeighboursIndices(i,grid.getChildCount()-1);
+            card.setNeighboursIndices(nIndicdes);
 
             card.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 public void onGlobalLayout() {
@@ -146,12 +149,12 @@ public class MainActivity extends AppCompatActivity {
 
     private View moveTile(Integer moveFrom, Integer moveTo) {
 
-        CardView moveFromCard = null;
-        CardView moveToCard = null;
+        GameTile moveFromCard = null;
+        GameTile moveToCard = null;
         try {
             //remove the card from its old spot
-            moveFromCard = (CardView) grid.getChildAt(moveFrom);
-            moveToCard = (CardView) grid.getChildAt(moveTo);
+            moveFromCard = (GameTile) grid.getChildAt(moveFrom);
+            moveToCard = (GameTile) grid.getChildAt(moveTo);
 
             RelativeLayout tileContainer = (RelativeLayout) moveFromCard.getChildAt(0);
             MaterialLetterIcon icon = (MaterialLetterIcon) tileContainer.getChildAt(0);
@@ -166,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
             RelativeLayout cloneContainer = new RelativeLayout(getApplicationContext());
             cloneContainer.setLayoutParams(tileContainer.getLayoutParams());
 
-            //cloneIcon.setBackground(new ColorDrawable(getResources().getColor(android.R.color.holo_orange_dark)));
             cloneIcon.setLetter("P");
             cloneIcon.setLayoutParams(icon.getLayoutParams());
             cloneIcon.setLetterColor(Color.LTGRAY);
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             YoYo.with(Techniques.FadeIn).duration(700).playOn(infoView);
 
             //shade next available spots
-            //ShadeNextAvailbleSpots(moveToCard);
+            ShadeNextAvailbleSpots(moveToCard);
 
             //move the card to its new spot
             moveToCard.addView(cloneContainer);
@@ -202,39 +204,26 @@ public class MainActivity extends AppCompatActivity {
         return moveFromCard;
     }
 
-    private void ShadeNextAvailbleSpots(CardView moveToCard) {
-       // moveToCard.setBackground(new ColorDrawable(Color.LTGRAY));
+    private void ShadeNextAvailbleSpots(GameTile moveToCard) {
 
-        int index = (int) moveToCard.getTag(R.string.view_index);
-        int shadeIndex = (index + 1) > (grid.getChildCount() - 1) ? grid.getChildCount() - 1 : index + 1;
-        int shadeIndexLast = (index - 1) < 0 ? 0 : index - 1;
-        grid.getChildAt(shadeIndex).setBackground(new ColorDrawable(Color.parseColor("#e4e4e4")));
-        grid.getChildAt(shadeIndexLast).setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+        ArrayList<Integer> neighboursIndices = moveToCard.getNeighboursIndices();
+
+        for(int i = 0; i < neighboursIndices.size(); i ++) {
+            Integer index = neighboursIndices.get(i);
+            GameTile gt = (GameTile) grid.getChildAt(index);
+            gt.setBackground(new ColorDrawable(Color.parseColor("#e4e4e4")));
+        }
     }
 
     private boolean areNeighbours(int moveFromIndex, int moveToIndex) {
 
-        return true;
+        GameTile tileFrom = (GameTile) grid.getChildAt(moveFromIndex);
+        return  tileFrom.getNeighboursIndices().contains(moveToIndex);
     }
-
-    boolean updatePlayerTileIndex(String player, int index) {
-
-       if(player == "D")
-       {
-           grid.setIndexOfOpponentTile(index);
-           playerTurn = "P";
-       }
-           else
-       {
-           grid.setIndexOfMyTile(index);
-           playerTurn = "D";
-       }
-       return true;
-   }
 
     private MaterialLetterIcon GetTileIcon(String label, final int shapeColor, final int backgroundColor) {
         MaterialLetterIcon icon = new MaterialLetterIcon(this);
-        icon.setLetterSize(14);
+        icon.setLetterSize(17);
         icon.setLetterTypeface(Typeface.SANS_SERIF);
         icon.setShapeType(MaterialLetterIcon.SHAPE_CIRCLE);
         icon.setBackgroundColor(backgroundColor);

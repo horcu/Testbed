@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.hacz.testbed.MainActivity">
+    tools:context="com.example.hacz.gameboard.MainActivity">
 
 <ScrollView
     android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
 
-        <com.example.hacz.testbed.AutoFitGridLayout
+        <com.example.hacz.gameboard.AutoFitGridLayout
             android:id="@+id/grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,10 +26,10 @@
             android:background="@android:color/transparent">
 
 
-        </com.example.hacz.testbed.AutoFitGridLayout>
+        </com.example.hacz.gameboard.AutoFitGridLayout>
 
 
-        <com.example.hacz.testbed.widget.LeBubbleTextView
+        <com.example.hacz.gameboard.widget.LeBubbleTextView
             android:id="@+id/infoView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             app:bubbleCornerRadius="8dp">
 
 
-        </com.example.hacz.testbed.widget.LeBubbleTextView>
+        </com.example.hacz.gameboard.widget.LeBubbleTextView>
 
     </RelativeLayout>
 
