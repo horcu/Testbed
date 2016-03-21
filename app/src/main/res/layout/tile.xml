@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <com.github.ivbaranov.mli.MaterialLetterIcon
+            android:id="@+id/letter_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="3dp"
+            app:mli_shape_type="circle"
+            app:mli_letter="P"
+            app:mli_initials_number="8"
+            app:mli_letter_color="#ebebeb"
+            app:mli_shape_color="@android:color/holo_orange_dark"/>
+
+</RelativeLayout>

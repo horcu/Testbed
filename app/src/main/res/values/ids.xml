@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="view_index">1</string>
+    <string name="view_top">2</string>
+    <string name="view_left">3</string>
+</resources>

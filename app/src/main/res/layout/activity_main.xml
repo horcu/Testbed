@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.hacz.testbed.MainActivity">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.example.hacz.testbed.AutoFitGridLayout
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:columnCount="6"
+            app:paddingEnd="0dp"
+            app:paddingStart="0dp"
+            android:background="@android:color/transparent">
+
+
+        </com.example.hacz.testbed.AutoFitGridLayout>
+
+
+        <com.example.hacz.testbed.widget.LeBubbleTextView
+            android:id="@+id/infoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bubbleArrowDirection="left"
+            app:bubbleTextColor="#fff"
+            app:bubbleBackgroundColor="@android:color/holo_orange_dark"
+            app:bubbleBackgroundPressColor="@android:color/transparent"
+            android:visibility="visible"
+            app:bubbleCornerRadius="8dp">
+
+
+        </com.example.hacz.testbed.widget.LeBubbleTextView>
+
+    </RelativeLayout>
+
+</ScrollView>
+
+
+</RelativeLayout>
