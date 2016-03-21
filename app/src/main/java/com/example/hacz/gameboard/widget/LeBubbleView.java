@@ -269,6 +269,10 @@ public class LeBubbleView extends RelativeLayout implements Runnable {
         return arrowDirection;
     }
 
+    public void setArrowDirection(ArrowDirection dir) {
+        arrowDirection = dir;
+    }
+
     public int getArrowOffset() {
         return mArrowOffset;
     }

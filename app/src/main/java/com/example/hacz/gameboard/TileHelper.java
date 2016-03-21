@@ -7,21 +7,22 @@ import java.util.ArrayList;
  */
 public class TileHelper {
 
-    private int otherIndices1;;
-    private int otherIndices2;
-    private int otherIndices3;
 
-    public  ArrayList<Integer> AddNeighboursIndices(int index, int totalCount){
+
+    public  ArrayList<Integer> AddNeighboursIndices(int index, int lasIndex){
         ArrayList<Integer> neighbourIndices = new ArrayList<Integer>();
 
         //set index of spot before current tile's slot
         int beforeIndex = index -1 > 0 ? index - 1 : 0;
 
         //set index of spot after current tile's spot
-        int afterIndex = index + 1 > totalCount ? totalCount : index + 1;
+        int afterIndex = index + 1 > lasIndex ? lasIndex : index + 1;
 
         //set the other neighbours that are either in the rows ahead
         //first position of any other in the same column [divisible by 6]
+        int otherIndices1 = 1000;
+        int otherIndices2 = 1000;
+        int otherIndices3 = 1000;
 
        if(index == 0 || ((index + 6) % 6)== 0 ) {
            otherIndices2 = index + 6;
@@ -33,17 +34,28 @@ public class TileHelper {
            otherIndices2 = index + 6;
        }
         //last spot
-        else if (index == (totalCount)) {
+        else if (index == (lasIndex)) {
            otherIndices1 = index - 10;
            otherIndices2 = index - 11;
-
-           //add all the neighbours indices to an arraylist
-           neighbourIndices.add(beforeIndex);
-           neighbourIndices.add(afterIndex);
-           neighbourIndices.add(otherIndices1);
-           neighbourIndices.add(otherIndices2);
-           neighbourIndices.add(otherIndices3);
+       } // in the middlke somewhere
+        else{
+           otherIndices1 = index + 5;
+            otherIndices2 = index + 6;
+            otherIndices3 = index + 7;
        }
+           //add all the neighbours indices to an arraylist
+        if(beforeIndex != index)
+           neighbourIndices.add(beforeIndex);
+        if(afterIndex != index)
+           neighbourIndices.add(afterIndex);
+
+        if(otherIndices1 != 1000)
+           neighbourIndices.add(otherIndices1);
+        if(otherIndices2 != 1000)
+           neighbourIndices.add(otherIndices2);
+        if(otherIndices3 != 1000)
+           neighbourIndices.add(otherIndices3);
+
        return neighbourIndices;
     }
 }

@@ -14,12 +14,10 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.hacz.gameboard.widget.LeBubbleTextView;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
-
 import java.util.ArrayList;
 
 
@@ -41,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
         TileHelper tHelper = new TileHelper();
 
         final View cardView = getLayoutInflater().inflate(R.layout.tile, grid, false);
+        int totalCount = 60; //TODO when moved to main project get this amount through a defined constant int
+        int lastIndex = totalCount - 1;
 
-        for(int i = 0; i < 60; i ++ ) {
+        InitCards(tHelper, cardView, totalCount, lastIndex);
+    }
+
+    private void InitCards(TileHelper tHelper, View cardView, int totalCount, int lastIndex) {
+        for(int i = 0; i < totalCount; i ++ ) {
 
             final GameTile card = (GameTile) getLayoutInflater().inflate(R.layout.peezcard, grid, false); // new CardView(this);
             card.setTag(R.string.view_index, i);
@@ -53,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
             params.height = 150;
             card.setForegroundGravity(Gravity.CENTER);
             card.setLayoutParams(params);
-            ArrayList<Integer> nIndicdes = tHelper.AddNeighboursIndices(i,grid.getChildCount()-1);
-            card.setNeighboursIndices(nIndicdes);
+            ArrayList<Integer> neighbourIndices = tHelper.AddNeighboursIndices(i, lastIndex);
+            card.setNeighboursIndices(neighbourIndices);
 
             card.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 public void onGlobalLayout() {
@@ -132,12 +136,15 @@ public class MainActivity extends AppCompatActivity {
     private void setInfoTextString(View card) {
         RelativeLayout rel = (RelativeLayout) infoView.getChildAt(1);
         TextView tv = (TextView) rel.getChildAt(0);
-        if(card !=null)
-        tv.setText("spot " + card.getTag(R.string.view_index ));
+        if(card !=null){
+           String spotText =  "spot " + card.getTag(R.string.view_index);
+            tv.setText(spotText);
+        }
     }
 
     private void AlignInfoView(View v) {
         //get arrowdirectrion
+        //infoView.setArrowDirection(LeBubbleView.ArrowDirection.RIGHT);
 
         //get where to anchor the infoview top bottom left or right.. below solution is for right side alignment
         int transX = ((int)v.getTag(R.string.view_top) + 210);
@@ -172,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
             cloneIcon.setLetter("P");
             cloneIcon.setLayoutParams(icon.getLayoutParams());
             cloneIcon.setLetterColor(Color.LTGRAY);
+            cloneIcon.setShapeColor(android.R.color.holo_orange_light);
+            cloneIcon.setAlpha(.4f);
             cloneIcon.setOnClickListener(PlayerTileOnClickHandler(moveToCard));
 
             cloneContainer.addView(cloneIcon);
@@ -206,12 +215,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void ShadeNextAvailbleSpots(GameTile moveToCard) {
 
+        for(int g = 0; g < grid.getChildCount(); g++ )
+        {
+            grid.getChildAt(g).setBackgroundResource(android.R.color.transparent);
+        }
+
         ArrayList<Integer> neighboursIndices = moveToCard.getNeighboursIndices();
 
         for(int i = 0; i < neighboursIndices.size(); i ++) {
             Integer index = neighboursIndices.get(i);
             GameTile gt = (GameTile) grid.getChildAt(index);
-            gt.setBackground(new ColorDrawable(Color.parseColor("#e4e4e4")));
+            MaterialLetterIcon icon = (MaterialLetterIcon) gt.getChildAt(0);
+            if(icon !=null)
+            icon.setShapeColor(Color.WHITE);
+            gt.setBackground(new ColorDrawable(Color.parseColor("#ffefe4ef")));
         }
     }
 

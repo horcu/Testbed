@@ -62,8 +62,8 @@ public class AutoFitGridLayout extends ViewGroup {
         horizontalSpace = a.getDimensionPixelSize(R.styleable.AutoFitGridLayout_horizontalSpace, 0);
         verticalSpace = a.getDimensionPixelSize(R.styleable.AutoFitGridLayout_verticalSpace, 0);
         a.recycle();
-        indexOfMyTile = 54;
-        indexOfOpponentTile = 5;
+        indexOfMyTile = 0;
+        indexOfOpponentTile = 0;
     }
 
 
