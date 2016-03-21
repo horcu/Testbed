@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             MaterialLetterIcon icon = (MaterialLetterIcon) tileContainer.getChildAt(0);
 
             if(icon == null)
+            if(icon == null)
                 return null ;
 
             icon.setDrawingCacheEnabled(true);
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             cloneIcon.setLetter("P");
             cloneIcon.setLayoutParams(icon.getLayoutParams());
             cloneIcon.setLetterColor(Color.LTGRAY);
-            cloneIcon.setShapeColor(android.R.color.holo_orange_light);
+            cloneIcon.setShapeColor(android.R.color.holo_orange_dark);
             cloneIcon.setAlpha(.4f);
             cloneIcon.setOnClickListener(PlayerTileOnClickHandler(moveToCard));
 
@@ -191,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
             MaterialLetterIcon visitedIcon = new MaterialLetterIcon(getApplicationContext());
 
             visitedIcon.setLayoutParams(icon.getLayoutParams());
-            visitedIcon.setShapeColor(Color.LTGRAY);
-            visitedIcon.setLetterColor(Color.WHITE);
+            visitedIcon.setShapeColor(Color.WHITE);
+            visitedIcon.setLetterColor(android.R.color.holo_orange_light);
 
             tileContainer.addView(visitedIcon);
 
